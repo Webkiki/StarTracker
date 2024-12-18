@@ -8,6 +8,11 @@ export default {
           "0%": { backgroundPosition: "0 0" },
           "100%": { backgroundPosition: "100% 100%" },
         },
+        pulse: {
+          "0%": { transform: "scale(1)", opacity: "1" },
+          "50%": { transform: "scale(1.5)", opacity: "0.7" },
+          "100%": { transform: "scale(1)", opacity: "1" },
+        },
       },
 
       animation: {

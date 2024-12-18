@@ -28,11 +28,11 @@ const App = () => {
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 p-4">
-          <div className="bg-slate-900 shadow-xl rounded-xl overflow-hidden p-4 flex-1">
+          <div className="bg-slate-900  shadow-lg shadow-black rounded-xl overflow-hidden p-4 flex-1">
             <PicDay />
           </div>
 
-          <div className="bg-slate-900 shadow-xl rounded-xl overflow-hidden p-4 flex-1">
+          <div className="bg-slate-900 shadow-lg shadow-black rounded-xl overflow-hidden p-4 flex-1">
             <Mars />
           </div>
         </div>

@@ -16,7 +16,7 @@ const StarPage = () => {
       try {
         const response = await axios.get("http://localhost:3000/stele");
         setStars(response.data); // salveaza datele in "stars"
-        setSteleFiltrate(response.data); // seteaza toate stelele ca fiind vizibile
+        setSteleFiltrate(response.data);
       } catch (error) {
         console.log("Eroare la încărcarea datelor:", error);
       }
@@ -47,7 +47,7 @@ const StarPage = () => {
   return (
     <Layout>
       <div className="px-4 md:px-8 py-6">
-        <div className="bg-gradient-to-r from-slate-700 to-blue-950 opacity-75 text-white p-8 rounded-lg shadow-lg mb-6">
+        <div className="bg-gradient-to-r from-slate-700/50 to-grey-950/50 text-white p-8 rounded-lg shadow-lg mb-6">
           <h1 className="text-3xl font-bold text-center mb-4">
             Explorează Stelele
           </h1>
@@ -75,7 +75,7 @@ const StarPage = () => {
           {steleFiltrate.map((star, index) => (
             <div
               key={index}
-              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer hover:scale-105 transition-transform duration-300"
+              className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer hover:scale-105 transition-transform duration-300 border border-6 border-blue-900 rounded-sm shadow-xl shadow-blue-900/80"
               onClick={() => openModal(star)}
             >
               <img

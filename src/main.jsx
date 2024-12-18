@@ -10,6 +10,7 @@ import { Login } from "./pages/Login.jsx";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
 import { LoggedIn } from "./components/LoggedIn.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import ConstellationPrivatePage from "./pages/constellations/ConstellationPrivatePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
       <LoggedIn>
         <Login />
       </LoggedIn>
+    ),
+  },
+  {
+    path: "/constellationprivate",
+    element: (
+      <ProtectedRoute>
+        <ConstellationPrivatePage />
+      </ProtectedRoute>
     ),
   },
 ]);

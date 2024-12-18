@@ -29,6 +29,9 @@ const Navbar = () => {
           <Link to="/starprivate" className="hover:underline">
             Star Private Page
           </Link>
+          <Link to="/constellationprivate" className="hover:underline">
+            ConstellationPrivatePage
+          </Link>
         </div>
 
         <button

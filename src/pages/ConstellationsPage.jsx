@@ -1,80 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Layout from "../layouts/Layout";
 
-const constellations = [
-  {
-    name: "Orion",
-    description:
-      "Orion este una dintre cele mai vizibile constelații de pe cerul de iarnă. Este formată din 7 stele majore, inclusiv Betelgeuse și Rigel.",
-    coordinates: { x: 100, y: 200 },
-  },
-  {
-    name: "Ursa Mare",
-    description:
-      "Ursa Mare este una dintre cele mai ușor de recunoscut constelații. Cele două stele din capul cozii, Alkaid și Mizar, sunt ușor de observat.",
-    coordinates: { x: 300, y: 100 },
-  },
-  {
-    name: "Scorpionul",
-    description:
-      "Scorpionul este o constelație strălucitoare și distinctivă, cunoscută pentru forma sa de S. Steaua roșie Antares este una dintre cele mai vizibile stele.",
-    coordinates: { x: 500, y: 300 },
-  },
-  {
-    name: "Leul",
-    description:
-      "Leul este o constelație mare și strălucitoare, care reprezintă un leu în mitologia greacă. Steaua Regulus este una dintre cele mai strălucitoare stele ale acestei constelații.",
-    coordinates: { x: 650, y: 150 },
-  },
-  {
-    name: "Carul Mic",
-    description:
-      "Carul Mic este o constelație mică, dar bine cunoscută datorită așa-numitelor 'stele călăuze'. Steaua Polus se află în centrul acestei constelații.",
-    coordinates: { x: 400, y: 450 },
-  },
-  {
-    name: "Cassiopeea",
-    description:
-      "Cassiopeea este o constelație în formă de W și reprezintă o regină mitologică. Este una dintre cele mai vizibile constelații de pe cerul de noapte.",
-    coordinates: { x: 750, y: 100 },
-  },
-  {
-    name: "Taurul (Taurus)",
-    description:
-      "Taurul este o constelație cunoscută pentru steaua sa cea mai strălucitoare, Aldebaran, care face parte din ochiul taurului. În mitologia greacă, Taurul reprezenta animalul transformativ în care Zeus s-a transformat pentru a răpi prințesa Europa. Constelația mai conține și nebuloasa Inelului de fum.",
-    coordinates: { x: 550, y: 200 },
-  },
-  {
-    name: "Vulturul (Aquila)",
-    description:
-      "Constelația Vulturul este una dintre cele mai distinctive constelații de vară și conține steaua Altair, care este una dintre cele mai strălucitoare stele de pe cer. În mitologia greacă, vulturul era asociat cu Zeus, care își trimitea vulturul pentru a-i aduce fulgerele.",
-    coordinates: { x: 600, y: 400 },
-  },
-  {
-    name: "Fecioara (Virgo)",
-    description:
-      "Fecioara este una dintre cele 12 constelații zodiacale și este una dintre cele mai mari constelații de pe cer. Steaua sa principală este Spica, care este o supergigantă albastră. În mitologia romană, Fecioara reprezenta zeița Ceres, care simboliza recolta.",
-    coordinates: { x: 200, y: 100 },
-  },
-  {
-    name: "Gemeni (Gemini)",
-    description:
-      "Constelația Gemeni este bine cunoscută datorită celor două stele principale, Castor și Pollux, care reprezintă frații gemeni din mitologia greacă. Aceștia erau fii ai lui Zeus și ai Ledei. Constelația este vizibilă pe cerul de iarnă și este una dintre cele 12 constelații zodiacale.",
-    coordinates: { x: 350, y: 500 },
-  },
-  {
-    name: "Săgetătorul (Sagittarius)",
-    description:
-      "Constelația Săgetătorului este una dintre cele mai ușor de recunoscut constelații de vară, cunoscută pentru forma sa de arcaș care trage cu săgeata către centrul Căii Lactee. Steaua sa principală, Kaus Australis, este o stea gigantă roșie. În mitologia greacă, Săgetătorul este un centaur, o creatură mitologică jumătate om, jumătate cal.",
-    coordinates: { x: 750, y: 300 },
-  },
-];
-
-const ConstellationPage = () => {
+const ConstellationsPage = () => {
+  const [constelatii, setConstelatii] = useState([]);
   const [constelatieSel, setConstelatieSel] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    const fetchConstelatii = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/constelatii");
+        setConstelatii(response.data); // setează constelatii
+      } catch (error) {
+        console.log("Eroare la încărcarea constelațiilor:", error);
+      }
+    };
+
+    fetchConstelatii();
+  }, []);
 
   const handleClick = (constelatie) => {
     setConstelatieSel(constelatie);
+    setIsExpanded(false);
+  };
+  //toggle pt expand
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  // Scalare pentru distribuire pe pagina
+  const scaleCoordinates = (coordinate, max) => {
+    return (coordinate / max) * 100;
   };
 
   return (
@@ -96,44 +53,80 @@ const ConstellationPage = () => {
             vast și misterios al Universului.
           </p>
         </div>
-        <div>
-          <div className="w-full h-[600px] bg-cover bg-center relative">
-            {constellations.map((constelatie, index) => (
-              <button
+        <div className="relative w-full h-[600px] ">
+          {/* Punctele pentru constelații */}
+          {constelatii.map((constelatie, index) => {
+            // Max coordonatele pentru scalare (depinde de dimensiune hartă)
+            const maxWidth = 90; // maxul pentru scalare X
+            const maxHeight = 90; // maxul pentru scalare Y
+
+            // Scalare coordonate
+            const scaledX = scaleCoordinates(
+              constelatie.coordinates.x,
+              maxWidth
+            );
+            const scaledY = scaleCoordinates(
+              constelatie.coordinates.y,
+              maxHeight
+            );
+
+            return (
+              <div
                 key={index}
-                onClick={() => handleClick(constelatie)}
-                className="absolute"
+                className="relative"
                 style={{
-                  top: `${constelatie.coordinates.y}px`,
-                  left: `${constelatie.coordinates.x}px`,
-                  width: "20px",
-                  height: "20px",
-                  borderRadius: "50%",
-                  backgroundColor: "white",
-                  cursor: "pointer",
-                  boxShadow:
-                    constelatieSel?.name === constelatie.name
-                      ? "0 0 25px 10px rgba(255, 255, 255, 0.8)"
-                      : "0 0 8px 2px rgba(255, 255, 255, 0.6)",
+                  top: `${scaledY}%`, // scalare pe Y
+                  left: `${scaledX}%`, // scalare pe X
                 }}
               >
-                <span className="absolute top-0 left-0 right-0 bottom-0 m-auto w-1.5 h-1.5 border-t-2 border-r-2 border-b-2 border-l-2 border-white rotate-45 transform origin-center" />
-              </button>
-            ))}
-          </div>
+                <button
+                  className={`absolute w-6 h-6 rounded-full bg-white cursor-pointer shadow-lg ${
+                    constelatieSel?.id === constelatie.id ? "animate-pulse" : ""
+                  }`}
+                  onClick={() => handleClick(constelatie)}
+                />
+                {/* Afișează descrierea constelației lângă buton */}
+                {constelatieSel?.id === constelatie.id && (
+                  <div className="absolute left-8 top-0 p-4 bg-slate-800 bg-opacity-80 text-white rounded-lg shadow-lg w-60">
+                    <h2 className="text-xl font-bold">{constelatie.name}</h2>
 
-          {constelatieSel && (
-            <div className="mt-4 p-4 rounded-lg shadow-lg max-w-md mx-auto">
-              <h2 className="text-xl font-bold text-white">
-                {constelatieSel.name}
-              </h2>
-              <p className="text-white">{constelatieSel.description}</p>
-            </div>
-          )}
+                    <p>{constelatie.description}</p>
+                    {isExpanded && (
+                      <div>
+                        {" "}
+                        <p>
+                          <strong>Sezon:</strong>
+                          {constelatie.season}
+                        </p>
+                        <p>
+                          <strong>Mitologie:</strong>
+                          {constelatie.mythology}
+                        </p>
+                        <p>
+                          <strong>Stele:</strong>
+                          {constelatie.majorStars}
+                        </p>
+                        <p>
+                          <strong>Tip:</strong>
+                          {constelatie.type}
+                        </p>
+                      </div>
+                    )}
+                    <button
+                      onClick={toggleExpand}
+                      className="mt-4 text-blue-400"
+                    >
+                      {isExpanded ? "Ascunde detalii" : "Vezi mai multe"}
+                    </button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </Layout>
   );
 };
 
-export default ConstellationPage;
+export default ConstellationsPage;

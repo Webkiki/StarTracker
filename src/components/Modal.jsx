@@ -4,7 +4,6 @@ const Modal = ({ show, closeModal, starDetails }) => {
   return (
     <>
       <div className="fixed inset-0 flex justify-center items-center z-50 outline-none focus:outline-none">
-        {/* Overlay */}
         <div className="absolute inset-0 bg-black opacity-80"></div>
 
         <div className="relative w-full max-w-lg mx-4 bg-slate-900 rounded-lg shadow-lg p-6">

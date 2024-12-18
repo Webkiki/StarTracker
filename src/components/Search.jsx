@@ -9,7 +9,7 @@ const Search = ({ onSearch }) => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    onSearch(searchStar); // Apeleaza onSearch corect
+    onSearch(searchStar); // Apeleaza onSearch
   };
 
   return (
@@ -19,12 +19,12 @@ const Search = ({ onSearch }) => {
           type="text"
           value={searchStar}
           onChange={handleChange}
-          placeholder="Căutare stele..."
+          placeholder="Gaseste-ti steaua..."
           className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
         />
         <button
           type="submit"
-          className="py-3 px-6 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="py-3 px-6 bg-blue-600 text-white rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Căutare
         </button>

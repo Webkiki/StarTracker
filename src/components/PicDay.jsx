@@ -52,7 +52,7 @@ const PicDay = () => {
           value={date}
           onChange={handleDateChange}
           max={new Date().toISOString().split("T")[0]} // Permite doar datele din trecut si prezent
-          className="p-2 border border-slate-700 rounded-md bg-slate-700 text-white appearance-none"
+          className="p-2 border border-slate-800 rounded-md bg-slate-800 text-white appearance-none"
         />
       </div>
 
@@ -62,7 +62,7 @@ const PicDay = () => {
 
       {todayPicture && (
         <div className="text-center">
-          <p className="text-sm text-gray-400 font-bold mt-2">
+          <p className="text-sm text-gray-300 font-bold mt-2">
             {todayPicture.date}
           </p>
           {/* trebuie sa verific daca e img sau video ca sa functioneze  verificare mai jos*/}

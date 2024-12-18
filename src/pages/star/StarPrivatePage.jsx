@@ -80,7 +80,6 @@ const StarPrivatePage = () => {
   return (
     <Layout>
       <div className="p-4 sm:p-6 lg:p-8">
-        {/* Butonul de logout */}
         <div className="text-right mb-4">
           <button
             onClick={handleLogOut}
@@ -92,16 +91,14 @@ const StarPrivatePage = () => {
         <h1 className="text-3xl font-bold mb-6">Stelele Existente</h1>
         <StarForm onAddStar={(newStar) => setStars([...stars, newStar])} />
 
-        {/* Lista Stelelor */}
         <div className="mt-8">
           <h2 className="text-2xl font-semibold mb-4">Lista Stelelor</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
             {stars.map((star) => (
               <div
                 key={star.id}
-                className=" p-4 rounded-lg shadow-md bg-slate-700 flex flex-col justify-between min-h-[300px]"
+                className=" p-4 rounded-lg shadow-md bg-slate-800 bg-opacity-70 flex flex-col justify-between min-h-[300px]"
               >
-                {/* imagine stea */}
                 {star.imageUrl && (
                   <img
                     src={star.imageUrl}
@@ -110,21 +107,19 @@ const StarPrivatePage = () => {
                   />
                 )}
 
-                {/* info despre stea */}
                 <h3 className="text-xl font-semibold">{star.denumire}</h3>
                 <p className="text-sm mt-2">{star.descriere}</p>
 
-                {/* Butoanele */}
                 <div className="mt-auto flex justify-between gap-4">
                   <button
                     onClick={() => handleEditStar(star)}
-                    className="px-4 py-2 bg-slate-500 text-white rounded hover:bg-slate-600"
+                    className="px-4 py-2 bg-blue-600 text-white rounded "
                   >
                     Modifică
                   </button>
                   <button
                     onClick={() => handleDeleteStar(star.id)}
-                    className="px-4 py-2 bg-indigo-900 text-white rounded hover:bg-indigo-800"
+                    className="px-4 py-2 bg-red-700 text-white rounded"
                   >
                     Șterge
                   </button>
@@ -195,6 +190,13 @@ const StarPrivatePage = () => {
                   className="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
                   Salvează Modificările
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="w-full py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                >
+                  Închide
                 </button>
               </form>
             </div>

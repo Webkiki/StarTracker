@@ -36,7 +36,7 @@ const StarForm = ({ onAddStar }) => {
         tip: "",
         varsta: "",
         distanta: "",
-        luminositate: "",
+        luminozitate: "",
         descriere: "",
         imagineUrl: "",
       });
@@ -48,7 +48,7 @@ const StarForm = ({ onAddStar }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-lg"
+      className="space-y-6 max-w-4xl mx-auto p-4 bg-white rounded-lg shadow-lg text-black"
     >
       <div className="flex flex-col space-y-4">
         <input
